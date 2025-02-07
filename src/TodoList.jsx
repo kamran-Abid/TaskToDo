@@ -109,33 +109,33 @@ const TodoList = () => {
                     <option value="Work">Work</option>
                     <option value="Other">Other</option>
                 </select>
-                <button type="submit">{editId ? "Update" : "Add"} Todo</button>
+                <button className="btn btn-primary my-3" type="submit">{editId ? "Update" : "Add"} Todo</button>
             </form>
-            <table className="todo-table">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Type</th>
-      <th>Created Date</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    {todos.map((todo) => (
-      <tr key={todo.id}>
-        <td>{todo.title}</td>
-        <td>{todo.description}</td>
-        <td>{todo.type}</td>
-        <td>{todo.createdDate}</td>
-        <td>
-          <button onClick={() => handleEdit(todo)}>Edit</button>
-          <button onClick={() => handleDelete(todo.id)}>Delete</button>
-        </td>
-      </tr>
-    ))}
-  </tbody>
-</table>
+            <table className="todo-table table table-striped table-bordered">
+                <thead className="bg-primary text-light">
+                    <tr>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Type</th>
+                        <th>Created Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {todos.map((todo) => (
+                        <tr key={todo.id}>
+                            <td>{todo.title}</td>
+                            <td>{todo.description}</td>
+                            <td>{todo.type}</td>
+                            <td>{todo.createdDate}</td>
+                            <td className="d-flex m-1">
+                                <button className="btn btn-warning btn-sm me-2" onClick={() => handleEdit(todo)}>Edit</button>
+                                <button className="btn btn-danger btn-sm me-2" onClick={() => handleDelete(todo.id)}>Delete</button>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
         </div>
     );
 };
