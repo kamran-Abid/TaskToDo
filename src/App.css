@@ -1,0 +1,65 @@
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+}
+
+input,
+select,
+button {
+  margin: 5px;
+  padding: 10px;
+  width: 100%;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.todo-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.todo-table th,
+.todo-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.todo-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.todo-table tbody tr:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+
+.todo-table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.todo-table button {
+  padding: 5px 10px;
+  margin-right: 5px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.todo-table button:hover {
+  background-color: #0056b3;
+}
