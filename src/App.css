@@ -5,6 +5,50 @@
   text-align: center;
 }
 
+/* submit button loading start */
+.addTodoBtn {
+  position: relative;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px; /* Space between text and loader */
+  transition: background-color 0.3s;
+}
+
+.addTodoBtn:disabled {
+  background-color: #cccccc; /* Grayed out when disabled */
+  cursor: not-allowed;
+}
+
+.loaderAnm {
+  width: 16px;
+  height: 16px;
+  border: 3px solid rgba(255, 255, 255, 0.3); /* Light transparent border */
+  border-top: 3px solid white; /* White top border for spinning effect */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Spinning animation keyframes */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* submit button loading end */
+
+
 input,
 select,
 button {

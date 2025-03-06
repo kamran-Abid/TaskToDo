@@ -9,6 +9,7 @@ const TodoList = () => {
     const [taskDescription, setTaskDescription] = useState("");
     const [taskType, setTaskType] = useState("");
     const [editId, setEditId] = useState(null);
+    const [isBtnLoading, setIsBtnLoading] = useState(false);
 
     // Fetch todos from Firestore
     const fetchTodos = async () => {
@@ -32,6 +33,7 @@ const TodoList = () => {
             Swal.fire("Error", "Please fill all fields", "error");
             return;
         }
+        setIsBtnLoading(true); // Show loader
 
         const todoData = {
             title: taskTitle,
@@ -44,10 +46,12 @@ const TodoList = () => {
             if (editId) {
                 // Update existing todo
                 await updateDoc(doc(db, "todos", editId), todoData);
+                setIsBtnLoading(false); // End loader
                 Swal.fire("Success", "Todo updated successfully", "success");
             } else {
                 // Add new todo
                 await addDoc(collection(db, "todos"), todoData);
+                setIsBtnLoading(false); // End loader
                 Swal.fire("Success", "Todo added successfully", "success");
             }
             setTaskTitle("");
@@ -80,7 +84,9 @@ const TodoList = () => {
             confirmButtonText: "Yes, delete it!",
         }).then(async (result) => {
             if (result.isConfirmed) {
+                setIsBtnLoading(true); // Start loader
                 await deleteDoc(doc(db, "todos", id));
+                setIsBtnLoading(false); // End loader
                 Swal.fire("Deleted!", "Your todo has been deleted.", "success");
                 fetchTodos();
             }
@@ -88,28 +94,40 @@ const TodoList = () => {
     };
 
     return (
-        <div className="container">
+        <div className="container" style={{ maxWidth: "1100px" }}>
             <h1>Todo List</h1>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    placeholder="Task Title"
-                    value={taskTitle}
-                    onChange={(e) => setTaskTitle(e.target.value)}
-                />
-                <input
-                    type="text"
-                    placeholder="Task Description"
-                    value={taskDescription}
-                    onChange={(e) => setTaskDescription(e.target.value)}
-                />
-                <select value={taskType} onChange={(e) => setTaskType(e.target.value)}>
-                    <option value="">Select Task Type</option>
-                    <option value="Personal">Personal</option>
-                    <option value="Work">Work</option>
-                    <option value="Other">Other</option>
-                </select>
-                <button className="btn btn-primary my-3" type="submit">{editId ? "Update" : "Add"} Todo</button>
+            <form onSubmit={handleSubmit} style={{ backgroundColor: "#F8F9F8", padding: "20px", display: "flex", justifyContent: "center" }}>
+                <div style={{ maxWidth: "600px" }}>
+                    <input
+                        type="text"
+                        placeholder="Task Title"
+                        value={taskTitle}
+                        onChange={(e) => setTaskTitle(e.target.value)}
+                    />
+                    <input
+                        type="text"
+                        placeholder="Task Description"
+                        value={taskDescription}
+                        onChange={(e) => setTaskDescription(e.target.value)}
+                    />
+                    <select value={taskType} onChange={(e) => setTaskType(e.target.value)}>
+                        <option value="">Select Task Type</option>
+                        <option value="Personal">Personal</option>
+                        <option value="Work">Work</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <button className="btn btn-primary my-3 addTodoBtn" disabled={isBtnLoading} type="submit">
+                        {isBtnLoading ? (
+                            <>
+                                Loading
+                                <span className="loaderAnm"></span>
+                            </>
+                        ) : (
+                            (editId ? "Update" : "Add") + " Todo"
+                        )}
+
+                    </button>
+                </div>
             </form>
             <table className="todo-table table table-striped table-bordered">
                 <thead className="bg-primary text-light">
